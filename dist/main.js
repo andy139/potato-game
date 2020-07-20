@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return PotatoeGame; });\n/* harmony import */ var _level__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./level */ \"./src/level.js\");\n\n\n\nclass PotatoeGame {\n  constructor(canvas) {\n    // Inputted html canvas dom element\n    this.ctx = canvas.getContext(\"2d\"); // Allow us to draw shape on page\n    this.dimensions = { width: canvas.width, height: canvas.height };\n    this.restart();\n  }\n\n  restart() {\n    this.level = new _level__WEBPACK_IMPORTED_MODULE_0__[\"default\"](this.dimensions)\n    this.animate();\n\n  }\n\n\n  animate() {\n    this.level.animate(this.ctx);\n    \n  }\n\n\n\n}\n\n//# sourceURL=webpack:///./src/game.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return PotatoeGame; });\n/* harmony import */ var _level__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./level */ \"./src/level.js\");\n/* harmony import */ var _potato__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./potato */ \"./src/potato.js\");\n\n\n\n\nclass PotatoeGame {\n  constructor(canvas) {\n    // Inputted html canvas dom element\n    this.ctx = canvas.getContext(\"2d\"); // Allow us to draw shape on page\n    this.dimensions = { width: canvas.width, height: canvas.height };\n    this.restart();\n    this.play();\n  }\n\n  restart() {\n    this.running = false;\n    this.score = 0;\n    this.distance = 0;\n\n\n    this.level = new _level__WEBPACK_IMPORTED_MODULE_0__[\"default\"](this.dimensions)\n    this.potato = new _potato__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.dimensions)\n    this.animate();\n\n  }\n\n  play() {\n    this.running = true;\n    this.animate();\n  }\n\n  click(e) {\n    if (!this.running) {\n      this.play();\n    }\n    this.potato.flap();\n  }\n\n\n  animate() {\n    // First move level\n    this.level.animate(this.ctx);\n    // Move and draw potato\n    this.potato.animate(this.ctx);\n\n\n\n    if (this.running) {\n      \n      requestAnimationFrame(this.animate.bind(this))\n    }\n\n    \n  }\n\n\n\n}\n\n//# sourceURL=webpack:///./src/game.js?");
 
 /***/ }),
 
@@ -119,6 +119,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _gam
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Level; });\nclass Level {\n  constructor(dimensions) {\n    this.dimensions = dimensions;\n  }\n\n  // Responsible for drawing background and obstacles \"knives, fryer, innout logo\" for potatoe, also responsible for control logic \n  // for how obstacles move and generated\n\n  // Utilize animate method to control and move obstacles, calculate score, and move potatoe (make new frame)\n\n  animate(ctx) {\n    this.drawBackground(ctx)\n  }\n\n  drawBackground(ctx) {\n    ctx.fillStyle = \"skyblue\";\n    ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);\n  }\n}\n\n//# sourceURL=webpack:///./src/level.js?");
+
+/***/ }),
+
+/***/ "./src/potato.js":
+/*!***********************!*\
+  !*** ./src/potato.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Potatoe; });\nconst POTATO_SPECS = {\n    POTATO_WIDTH: 40,\n    POTATO_HEIGHT: 40,\n    FLY_SPEED: 5,\n    SPEED: 3,\n    TERMINAL_VELOCITY: 12,\n    GRAVITY_CONSTANT: 0.5,\n\n}\n\n\nclass Potatoe {\n    constructor(dimensions) {\n        this.velocity = 0\n        this.dimensions = dimensions\n        this.x = this.dimensions.width / 4\n        this.y = this.dimensions.height / 2\n    \n    }\n\n    animate(ctx) {\n        this.movePotato()\n        this.drawPotato(ctx)\n    }\n\n    drawPotato(ctx) {\n        ctx.fillStyle=\"yellow\"\n        ctx.fillRect(this.x, this.y, POTATO_SPECS.POTATO_WIDTH, POTATO_SPECS.POTATO_HEIGHT)\n        \n    }\n\n\n    fly() {\n        this.velocity = -1 * POTATO_SPECS.FLY_SPEED;\n    }\n\n    movePotato() {\n        // for each frame, potatoe must move by its velcoity\n        // velocity is pixels per frame, each frame it should update position by velocity\n\n        this.y += this.velocity;\n\n        //the acceleration of gravity is in pixels per second per second\n        // at each second, it changes the velocity by whatever the gravity const is\n        this.velocity += POTATO_SPECS.GRAVITY_CONSTANT\n        \n    }\n\n   \n\n}\n\n//# sourceURL=webpack:///./src/potato.js?");
 
 /***/ })
 
