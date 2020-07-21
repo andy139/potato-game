@@ -1,13 +1,14 @@
 const POTATO_SPECS = {
     POTATO_WIDTH: 40,
     POTATO_HEIGHT: 40,
-    FLY_SPEED: 8,
+    FLY_SPEED: 12,
     SPEED: 3,
     TERMINAL_VELOCITY: 12,
     GRAVITY_CONSTANT: 0.5,
 
 }
 
+const TO_RADIANS = Math.PI/180
 
 export default class Potatoe {
     constructor(dimensions) {
@@ -28,17 +29,26 @@ export default class Potatoe {
         // ctx.fillRect(this.x, this.y, POTATO_SPECS.POTATO_WIDTH, POTATO_SPECS.POTATO_HEIGHT)
         let potato = new Image();
         potato.src = './sprites/potato.png';
+        ctx.save(); // save curr state
+        // ctx.rotate(1.2);
 
         ctx.drawImage(
             potato,
             this.x,
-            this.y
+            this.y,
+          
         )
+
+        ctx.restore();
     }
 
 
     fly() {
         this.velocity = -1 * POTATO_SPECS.FLY_SPEED;
+    }
+
+    falling() {
+        
     }
 
     movePotato() {
