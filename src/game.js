@@ -8,7 +8,9 @@ export default class PotatoeGame {
     this.ctx = canvas.getContext("2d"); // Allow us to draw shape on page
     this.dimensions = { width: canvas.width, height: canvas.height };
     this.restart();
-    this.play();
+    // this.play();
+
+    this.handleClick();
   }
 
   restart() {
@@ -19,6 +21,7 @@ export default class PotatoeGame {
 
     this.level = new Level(this.dimensions)
     this.potato = new Potato(this.dimensions)
+    
     this.animate();
 
   }
@@ -28,11 +31,36 @@ export default class PotatoeGame {
     this.animate();
   }
 
-  click(e) {
+  // registerClick() {
+    
+  // }
+
+  handleClick() {
+    // this.clickHandler = this.click.bind(this);
+    this.startFlying = this.startFly.bind(this);
+    this.stopFlying = this.stopFly.bind(this);
+    this.flyHandler = this.flyHandler.bind(this);
+    this.ctx.canvas.addEventListener("mousedown", this.startFlying)
+    this.ctx.canvas.addEventListener("mouseup", this.stopFlying)
+  }
+
+  flyHandler() {
+    this.potato.fly()
+  }
+
+  startFly() {
     if (!this.running) {
       this.play();
     }
-    this.potato.flap();
+
+    console.log("mousedown hold")
+    this.flyInterval = setInterval(this.flyHandler, 1000/20)
+
+  }
+  
+  stopFly() {
+    console.log('mouse up')
+    clearInterval(this.flyInterval);
   }
 
 
