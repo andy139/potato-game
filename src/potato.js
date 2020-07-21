@@ -13,7 +13,7 @@ export default class Potatoe {
     constructor(dimensions) {
         this.velocity = 0
         this.dimensions = dimensions
-        this.x = this.dimensions.width / 4
+        this.x = this.dimensions.height / 10
         this.y = this.dimensions.height / 2
     
     }
@@ -24,9 +24,16 @@ export default class Potatoe {
     }
 
     drawPotato(ctx) {
-        ctx.fillStyle="yellow"
-        ctx.fillRect(this.x, this.y, POTATO_SPECS.POTATO_WIDTH, POTATO_SPECS.POTATO_HEIGHT)
-        
+        // ctx.fillStyle="yellow"
+        // ctx.fillRect(this.x, this.y, POTATO_SPECS.POTATO_WIDTH, POTATO_SPECS.POTATO_HEIGHT)
+        let potato = new Image();
+        potato.src = './sprites/potato.png';
+
+        ctx.drawImage(
+            potato,
+            this.x,
+            this.y
+        )
     }
 
 
@@ -37,7 +44,6 @@ export default class Potatoe {
     movePotato() {
         // for each frame, potatoe must move by its velcoity
         // velocity is pixels per frame, each frame it should update position by velocity
-
         this.y += this.velocity;
 
         //the acceleration of gravity is in pixels per second per second

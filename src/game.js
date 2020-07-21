@@ -1,5 +1,6 @@
 import Level from './level';
-import Potato from './potato'
+import Potato from './potato';
+import MovingObject from './moving_objects';
 
 
 export default class PotatoeGame {
@@ -21,6 +22,8 @@ export default class PotatoeGame {
 
     this.level = new Level(this.dimensions)
     this.potato = new Potato(this.dimensions)
+    this.movingObject = new MovingObject(this.dimensions)
+    
     
     this.animate();
 
@@ -69,6 +72,8 @@ export default class PotatoeGame {
     this.level.animate(this.ctx);
     // Move and draw potato
     this.potato.animate(this.ctx);
+
+    this.movingObject.animate(this.ctx);
 
 
 
