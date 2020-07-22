@@ -67,6 +67,8 @@ export default class PotatoeGame {
   }
 
 
+
+
   animate() {
     // First move level
     this.level.animate(this.ctx);

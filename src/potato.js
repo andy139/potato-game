@@ -62,6 +62,15 @@ export default class Potatoe {
         
     }
 
+    bounds() {
+        return {
+            left: this.x,
+            right: this.x + POTATO_SPECS.POTATO_WIDTH,
+            top: this.y,
+            bottom: this.y + POTATO_SPECS.POTATO_HEIGHT,
+        }
+    }
+
    
 
 }

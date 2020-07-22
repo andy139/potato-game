@@ -3,6 +3,8 @@ const CONSTANTS = {
   WARM_UP_SECONDS: 2,
   OBJECT_SPACING: 250,
   HEIGHT: 50,
+  OBJECT_WIDTH: 100,
+  OBJECT_HEIGHT: 75
   
 }
 
@@ -13,8 +15,6 @@ export default class Level {
   constructor(dimensions) {
     this.dimensions = dimensions;
     const firstObjectDistance = this.dimensions.width + (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.OBJECT_SPEED)
-
-    // const firstObjectDistance = 50
 
     console.log(firstObjectDistance)
     this.objects = [
@@ -36,6 +36,19 @@ export default class Level {
     this.drawObjects(ctx);
   }
 
+  // Method turns object status to false if passed
+  passedObject(potato, callback) {
+    this.eachObject((object) => {
+      if (object.right < potato.left) {
+        if (!object.passed) {
+          object.passed = true;
+          callback();
+        }
+        
+      }
+    })
+  }
+
   drawBackground(ctx) {
 
     ctx.fillStyle = "skyblue";
@@ -46,7 +59,8 @@ export default class Level {
   randomObject(x) {
 
     const object = {
-      posX: x,
+      left: x,
+      right: CONSTANTS.OBJECT_WIDTH + x,
       top: Math.floor(Math.random() * (this.dimensions.height)),
       passed: false,
     }
@@ -57,13 +71,14 @@ export default class Level {
 
   moveObjects() {
     this.eachObject(function (object) {
-      object.posX -= CONSTANTS.OBJECT_SPEED
+      object.left -= CONSTANTS.OBJECT_SPEED
+      object.right -= CONSTANTS.OBJECT_SPEED
     })
 
     // ADD new objects if one object reach end 
-    if (this.objects[0].posX <= 0) {
+    if (this.objects[0].left <= 0) {
       this.objects.shift();
-      const newObj = this.objects[1].posX + CONSTANTS.OBJECT_SPACING;
+      const newObj = this.objects[1].left + CONSTANTS.OBJECT_SPACING;
       this.objects.push(this.randomObject(newObj))
     }
   }
@@ -76,13 +91,15 @@ export default class Level {
   drawObjects(ctx) {
     this.eachObject(function (object) {
       let newObject = new Image();
-      newObject.src = './sprites/potato.png';
+      newObject.src = './sprites/ufo.png';
 
       //draw object
       ctx.drawImage(
         newObject,
-        object.posX,
+        object.left,
         object.top,
+        CONSTANTS.OBJECT_WIDTH,
+        CONSTANTS.OBJECT_HEIGHT,
 
       )
 
