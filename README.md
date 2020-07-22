@@ -1,5 +1,7 @@
-# potato-game
+# Fly Potato Fly
+[Link](https://andy139.github.io/potato-game/)
 
-<a href="https://gitmoji.carloscuesta.me">
-  <img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square" alt="Gitmoji">
-</a>
+## Technologies
+- Canvas API
+- Vanilla Javascript
+
