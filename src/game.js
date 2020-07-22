@@ -136,11 +136,11 @@ export default class PotatoeGame {
  
     
     this.ctx.stroke();
-    this.ctx.font = "bold 15pt serif";
+    this.ctx.font = "bold 17pt serif";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(`Distance:`, scoreText.x, scoreText.y);
     this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 1;
     this.ctx.strokeText(`Distance:`, scoreText.x, scoreText.y);
 
 
@@ -149,16 +149,16 @@ export default class PotatoeGame {
     this.ctx.fillStyle = "white";
     this.ctx.fillText(`${this.distance}`, score.x, score.y);
     this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 1;
     this.ctx.strokeText(`${this.distance}`, score.x, score.y);
 
 
     this.ctx.stroke();
-    this.ctx.font = "bold 15pt serif";
+    this.ctx.font = "bold 17pt serif";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(`High Score:`, highScoreText.x, highScoreText.y);
     this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 1;
     this.ctx.strokeText(`High Score:`, highScoreText.x, highScoreText.y);
 
 
@@ -167,7 +167,7 @@ export default class PotatoeGame {
     this.ctx.fillStyle = "white";
     this.ctx.fillText(`${this.highDistance}`, highScore.x, highScore.y);
     this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 1;
     this.ctx.strokeText(`${this.highDistance}`, highScore.x, highScore.y);
 
   }
