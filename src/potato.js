@@ -71,6 +71,15 @@ export default class Potatoe {
         }
     }
 
+    outOfBounds() {
+        const isAboveCanvas = this.y < 0;
+        const isBelowCanvas = this.y + POTATO_SPECS.POTATO_HEIGHT > this.dimensions.height;
+        return isAboveCanvas || isBelowCanvas
+
+
+
+    }
+
    
 
 }

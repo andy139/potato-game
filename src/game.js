@@ -66,6 +66,12 @@ export default class PotatoeGame {
     clearInterval(this.flyInterval);
   }
 
+  //Game over if either potato collides with object or potato out of bounds
+
+  gameOver() {
+    
+  }
+
 
 
 

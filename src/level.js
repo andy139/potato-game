@@ -49,6 +49,42 @@ export default class Level {
     })
   }
 
+  // Returns true if potato collides with any object in game
+  isCollide(potato) {
+
+
+    // Helper Function to see if objects overlap
+    const overLap = (objectOne, objectTwo) => {
+
+      // Check X-axis if they dont overlap
+      if (objectOne.left > objectTwo.right || objectOne.right < objectTwo.left) {
+        return false;
+      }
+      // Check y-axis if they dont overlap
+      // 100 
+      // 200 ObjectTwo Bottom
+      // 300 ObjectOne Top
+      if (objectOne.top > objectTwo.bottom || objectOne.bottom < objectTwo.top) {
+        return false;
+      }
+      return true;
+    }
+
+    let collision = false;
+
+    this.eachObject((object) => {
+      if (overLap(object, potato)) {
+        collision = true
+      }
+
+    });
+
+    return collision
+
+
+  }
+
+
   drawBackground(ctx) {
 
     ctx.fillStyle = "skyblue";
@@ -58,10 +94,12 @@ export default class Level {
 
   randomObject(x) {
 
+    const randomTop = Math.floor(Math.random() * (this.dimensions.height));
     const object = {
       left: x,
       right: CONSTANTS.OBJECT_WIDTH + x,
-      top: Math.floor(Math.random() * (this.dimensions.height)),
+      top: randomTop,
+      bottom: randomTop + CONSTANTS.OBJECT_HEIGHT,
       passed: false,
     }
 
