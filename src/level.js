@@ -4,9 +4,14 @@ const CONSTANTS = {
   OBJECT_SPACING: 250,
   HEIGHT: 50,
   OBJECT_WIDTH: 100,
-  OBJECT_HEIGHT: 75
+  OBJECT_HEIGHT: 75,
+  CLOUD_WIDTH: 130,
+  CLOUD_HEIGHT: 80,
+  CLOUD_SPEED: 5.5,
   
 }
+
+
 
 
 
@@ -16,6 +21,7 @@ export default class Level {
   constructor(dimensions) {
     this.dimensions = dimensions;
     const firstObjectDistance = this.dimensions.width + (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.OBJECT_SPEED)
+    const firstCloudDistance = this.dimensions.width + (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.CLOUD_SPEED)
 
     this.objects = [
       this.randomObject(firstObjectDistance),
@@ -23,6 +29,13 @@ export default class Level {
       this.randomObject(firstObjectDistance + (CONSTANTS.OBJECT_SPACING * 2))
 
     ];
+
+    this.clouds = [
+      this.randomClouds(firstCloudDistance),
+      this.randomClouds(firstCloudDistance + CONSTANTS.OBJECT_SPACING),
+      this.randomClouds(firstCloudDistance + (CONSTANTS.OBJECT_SPACING * 2))
+
+    ]
 
   }
 
@@ -33,7 +46,9 @@ export default class Level {
   animate(ctx) {
     this.drawBackground(ctx)
     this.moveObjects();
+    this.moveClouds()
     this.drawObjects(ctx);
+    this.drawClouds(ctx);
   }
 
   // Method turns object status to false if passed
@@ -109,6 +124,26 @@ export default class Level {
     
   }
 
+  eachObject(callback) {
+    this.objects.forEach(callback.bind(this));
+  }
+
+
+  randomClouds(x) {
+    const top = Math.floor(Math.random() * (30));
+    const cloud = {
+      left: x,
+      right: CONSTANTS.CLOUD_WIDTH + x,
+      top: top,
+      bottom: top + CONSTANTS.CLOUD_HEIGHT,
+  
+    }
+
+    return cloud
+
+
+  }
+
   moveObjects() {
     this.eachObject(function (object) {
       object.left -= CONSTANTS.OBJECT_SPEED
@@ -123,10 +158,44 @@ export default class Level {
     }
   }
 
+  moveClouds() {
 
-  eachObject(callback) {
-    this.objects.forEach(callback.bind(this));
+    this.eachCloud(function (cloud) {
+      cloud.left -= CONSTANTS.CLOUD_SPEED
+      cloud.right -= CONSTANTS.CLOUD_SPEED
+    })
+
+    // ADD new objects if one object reach end 
+    if (this.clouds[0].right <= 0) {
+      this.clouds.shift();
+      const newObj = this.clouds[1].left + CONSTANTS.OBJECT_SPACING;
+      this.clouds.push(this.randomClouds(newObj))
+    }
+    
   }
+
+  eachCloud(callback) {
+    this.clouds.forEach(callback.bind(this));
+  }
+
+  drawClouds(ctx) {
+    this.eachCloud(function (cloud) {
+      let newCloud = new Image();
+      newCloud.src = './sprites/cloud.png'
+
+      ctx.drawImage(
+        newCloud,
+        cloud.left,
+        cloud.top,
+        CONSTANTS.CLOUD_WIDTH,
+        CONSTANTS.CLOUD_HEIGHT,
+
+      )
+    })
+  }
+
+
+
 
   drawObjects(ctx) {
     this.eachObject(function (object) {
