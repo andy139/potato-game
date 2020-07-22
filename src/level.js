@@ -1,6 +1,6 @@
 const CONSTANTS = {
   OBJECT_SPEED: 8,
-  WARM_UP_SECONDS: 2,
+  WARM_UP_SECONDS: 1,
   OBJECT_SPACING: 250,
   HEIGHT: 50,
   OBJECT_WIDTH: 100,
@@ -16,7 +16,6 @@ export default class Level {
     this.dimensions = dimensions;
     const firstObjectDistance = this.dimensions.width + (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.OBJECT_SPEED)
 
-    console.log(firstObjectDistance)
     this.objects = [
       this.randomObject(firstObjectDistance),
       this.randomObject(firstObjectDistance + CONSTANTS.OBJECT_SPACING),
@@ -39,12 +38,14 @@ export default class Level {
   // Method turns object status to false if passed
   passedObject(potato, callback) {
     this.eachObject((object) => {
+
       if (object.right < potato.left) {
+
         if (!object.passed) {
           object.passed = true;
+         
           callback();
         }
-        
       }
     })
   }
@@ -114,7 +115,7 @@ export default class Level {
     })
 
     // ADD new objects if one object reach end 
-    if (this.objects[0].left <= 0) {
+    if (this.objects[0].right <= 0) {
       this.objects.shift();
       const newObj = this.objects[1].left + CONSTANTS.OBJECT_SPACING;
       this.objects.push(this.randomObject(newObj))
