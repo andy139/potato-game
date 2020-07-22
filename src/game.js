@@ -1,6 +1,5 @@
 import Level from './level';
 import Potato from './potato';
-import MovingObject from './moving_objects';
 
 
 export default class PotatoeGame {
@@ -19,11 +18,9 @@ export default class PotatoeGame {
     this.score = 0;
     this.distance = 0;
 
-
     this.level = new Level(this.dimensions)
     this.potato = new Potato(this.dimensions)
-    this.movingObject = new MovingObject(this.dimensions)
-    
+
     
     this.animate();
 
@@ -69,6 +66,9 @@ export default class PotatoeGame {
   //Game over if either potato collides with object or potato out of bounds
 
   gameOver() {
+    return (
+      this.level.isCollide(this.potato.bounds()) || this.potato.outOfBounds()
+    )
     
   }
 
@@ -81,7 +81,12 @@ export default class PotatoeGame {
     // Move and draw potato
     this.potato.animate(this.ctx);
 
-    this.movingObject.animate(this.ctx);
+
+    if (this.gameOver()) {
+      this.restart();
+    }
+
+
 
 
 
