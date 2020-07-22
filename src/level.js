@@ -111,7 +111,7 @@ export default class Level {
 
   randomObject(x) {
 
-    const randomTop = Math.floor(Math.random() * (this.dimensions.height));
+    const randomTop = Math.floor(Math.random() * (this.dimensions.height - 40));
     const object = {
       left: x,
       right: CONSTANTS.OBJECT_WIDTH + x,
@@ -183,6 +183,16 @@ export default class Level {
       let newCloud = new Image();
       newCloud.src = './sprites/cloud.png'
 
+      let newPig = new Image();
+      newPig.src = './sprites/flying_pig.png'
+
+
+      // select random cloud to be pig
+      let maximum = 9
+      let minimum = 1
+      let randomNumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+
+ 
       ctx.drawImage(
         newCloud,
         cloud.left,
@@ -191,6 +201,9 @@ export default class Level {
         CONSTANTS.CLOUD_HEIGHT,
 
       )
+
+   
+
     })
   }
 

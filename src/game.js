@@ -51,8 +51,11 @@ export default class PotatoeGame {
     this.ctx.canvas.addEventListener("mouseup", this.stopFlying)
   }
 
-  flyHandler() {
+  flyHandler() {  
+
     this.potato.fly()
+    this.potato.acceleration = this.potato.acceleration * 1.11
+
   }
 
   startFly() {
@@ -67,6 +70,7 @@ export default class PotatoeGame {
   stopFly() {
 
     clearInterval(this.flyInterval);
+    this.potato.acceleration = 1;
   }
 
   //Game over if either potato collides with object or potato out of bounds

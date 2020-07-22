@@ -13,11 +13,11 @@ const TO_RADIANS = Math.PI/180
 
 export default class Potatoe {
     constructor(dimensions) {
-        this.velocity = 0
-        this.dimensions = dimensions
-        this.x = this.dimensions.height / 10
-        this.y = this.dimensions.height / 2
-
+        this.velocity = 0;
+        this.dimensions = dimensions;
+        this.x = this.dimensions.height / 10;
+        this.y = this.dimensions.height / 2;
+        this.acceleration = 1;
         this.potatoImg = new Image();
         this.potatoImg.src = './sprites/potato.png';
     
@@ -42,8 +42,6 @@ export default class Potatoe {
     
         
 
-  
-
         // ctx.rect(this.x,this.y,100,100)
 
 
@@ -51,7 +49,7 @@ export default class Potatoe {
 
 
     fly() {
-        this.velocity = -1 * POTATO_SPECS.FLY_SPEED;
+        this.velocity = (-1 * POTATO_SPECS.FLY_SPEED) * this.acceleration;
     }
 
     falling() {
