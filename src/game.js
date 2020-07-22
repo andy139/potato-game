@@ -36,9 +36,6 @@ export default class PotatoeGame {
     this.animate();
   }
 
-  // registerClick() {
-    
-  // }
 
   handleClick() {
     // this.clickHandler = this.click.bind(this);
@@ -147,11 +144,6 @@ export default class PotatoeGame {
     this.ctx.lineWidth = 2;
     this.ctx.strokeText(`${this.highDistance}`, highScore.x, highScore.y);
 
-
-    
-    
-
-
   }
 
 
@@ -170,13 +162,8 @@ export default class PotatoeGame {
       if (this.distance > this.highDistance) {
         this.highDistance = this.distance
 
-      
       }
-
-
       this.restart();
-
-  
     }
 
 
@@ -191,11 +178,8 @@ export default class PotatoeGame {
       
     })
 
-
     this.drawScore();
    
-
-
 
     if (this.running) {
       
