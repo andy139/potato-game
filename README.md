@@ -1,5 +1,5 @@
 # Fly Potato Fly
-[Link](https://andy139.github.io/potato-game/)
+[Play Here](https://andy139.github.io/potato-game/)
 
 ## Technologies
 - Canvas API
