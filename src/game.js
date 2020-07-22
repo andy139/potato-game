@@ -1,5 +1,6 @@
 import Level from './level';
 import Potato from './potato';
+import Intro from './game_intro';
 
 
 export default class PotatoeGame {
@@ -7,14 +8,16 @@ export default class PotatoeGame {
     // Inputted html canvas dom element
 
     this.ctx = canvas.getContext("2d"); // Allow us to draw shape on page
+    
+    
     this.dimensions = { width: canvas.width, height: canvas.height };
 
     this.highDistance = 0;
-
-    this.restart();
-    // this.play();
-
+    
     this.handleClick();
+    this.restart();
+
+    
   }
 
   restart() {
@@ -23,11 +26,13 @@ export default class PotatoeGame {
     this.distance = 0;
 
 
-    this.level = new Level(this.dimensions)
-    this.potato = new Potato(this.dimensions)
+    this.level = new Level(this.dimensions);
+    this.potato = new Potato(this.dimensions);
 
-    
     this.animate();
+    this.drawInstructions();
+   
+
 
   }
 
@@ -72,6 +77,23 @@ export default class PotatoeGame {
     )
     
   }
+
+  drawInstructions() {
+    const textLoc = {
+      x: this.dimensions.width - 100,
+      y: this.dimensions.height - 100
+    }
+
+    const instructions = `Hold your left mouse button to fly your potato up, and release to go down`
+
+
+    wrapText(this.ctx, instructions, this.dimensions.width - 300, this.dimensions.height - 150, 250, 25)
+
+
+
+    
+  }
+
 
   drawScore() {
     
@@ -150,10 +172,20 @@ export default class PotatoeGame {
 
 
   animate() {
+
+    
     // First move level
     this.level.animate(this.ctx);
     // Move and draw potato
     this.potato.animate(this.ctx);
+
+
+
+    this.drawScore();
+
+   
+
+ 
 
 
     if (this.gameOver()) {
@@ -178,17 +210,39 @@ export default class PotatoeGame {
       
     })
 
-    this.drawScore();
-   
 
     if (this.running) {
       
       requestAnimationFrame(this.animate.bind(this))
     }
 
-    
+
   }
 
 
 
 }
+
+
+// Helper method to wrap paragraph text
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+  var words = text.split(' ');
+  var line = '';
+
+  for (var n = 0; n < words.length; n++) {
+    var testLine = line + words[n] + ' ';
+    var metrics = context.measureText(testLine);
+    var testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      context.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    }
+    else {
+      line = testLine;
+    }
+  }
+  context.fillText(line, x, y);
+}
+

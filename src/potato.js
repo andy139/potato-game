@@ -17,30 +17,36 @@ export default class Potatoe {
         this.dimensions = dimensions
         this.x = this.dimensions.height / 10
         this.y = this.dimensions.height / 2
+
+        this.potatoImg = new Image();
+        this.potatoImg.src = './sprites/potato.png';
     
     }
 
     animate(ctx) {
-        this.movePotato()
         this.drawPotato(ctx)
+        this.movePotato()
+       
     }
 
     drawPotato(ctx) {
         // ctx.fillStyle="yellow"
         // ctx.fillRect(this.x, this.y, POTATO_SPECS.POTATO_WIDTH, POTATO_SPECS.POTATO_HEIGHT)
-        let potato = new Image();
-        potato.src = './sprites/potato.png';
-        ctx.save(); // save curr state
-        // ctx.rotate(1.2);
 
         ctx.drawImage(
-            potato,
+            this.potatoImg,
             this.x,
             this.y,
-          
-        )
 
-        ctx.restore();
+        )
+    
+        
+
+  
+
+        // ctx.rect(this.x,this.y,100,100)
+
+
     }
 
 
