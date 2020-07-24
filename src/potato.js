@@ -9,7 +9,7 @@ const POTATO_SPECS = {
 
 }
 
-const TO_RADIANS = Math.PI/180
+const TO_RADIANS = Math.PI/181
 
 export default class Potatoe {
     constructor(dimensions) {
